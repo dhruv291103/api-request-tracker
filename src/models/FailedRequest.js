@@ -24,11 +24,6 @@ const failedRequestSchema = new mongoose.Schema({
   }
 });
 
-
-
-// module.exports = mongoose.model('FailedRequest', failedRequestSchema);
-
-
-const FailedRequest = mongoose.model('FailedRequest', failedRequestSchema, 'failed_requests'); 
+const FailedRequest = mongoose.model('FailedRequest', failedRequestSchema, 'failed_requests');
 
 module.exports = FailedRequest;

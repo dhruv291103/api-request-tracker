@@ -5,16 +5,15 @@ const { logger } = require('../utils/logger');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'dhruvdpk03@gmail.com',  // Your Gmail address
+    user: 'dhruvdpk03@gmail.com',  // Personal Gmail address
     pass: 'xzts czvl vsvn hvai'  // Use App Password (if you have 2FA enabled)
   }
 });
 
-/// In /services/alertService.js, wrap the sendMail function call in a try-catch block
 const sendAlert = async (userEmail, ip, failedAttempts) => {
   const mailOptions = {
-    from: "dhruvdpk03@gmail.com",  // Sender's email
-    to: userEmail,  // Recipient's email (the user who failed to login)
+    from: "dhruvdpk03@gmail.com",
+    to: userEmail,
     subject: 'Security Alert: Multiple Failed Login Attempts Detected',
     html: `
       <html>
@@ -85,8 +84,7 @@ const sendAlert = async (userEmail, ip, failedAttempts) => {
 
   try {
     await transporter.sendMail(mailOptions);
-
-    // Log the alert to MongoDB with full metadata (custom fields)
+    // Log the alert to MongoDB with metadata 
     logger.info('Alert sent to user: ' + userEmail, {
       ip: ip,
       failedAttempts: failedAttempts,
@@ -98,6 +96,5 @@ const sendAlert = async (userEmail, ip, failedAttempts) => {
     logger.error('Error sending alert:', error);
   }
 };
-
 
 module.exports = { sendAlert };
